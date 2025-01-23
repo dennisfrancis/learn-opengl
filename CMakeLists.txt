@@ -16,5 +16,5 @@ if (NOT TARGET glfw)
     target_include_directories(glfw INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw/include)
 endif()
 
-add_executable(01_hello 01_hello.cpp)
-target_link_libraries(01_hello PRIVATE glfw -lGL) 
+add_executable(01_triangle 01_triangle.cpp)
+target_link_libraries(01_triangle PRIVATE glfw -lGL)
