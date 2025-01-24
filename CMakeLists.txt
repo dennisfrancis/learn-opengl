@@ -27,3 +27,6 @@ target_link_libraries(01_triangle PRIVATE glfw -lGL)
 
 add_executable(02_glew 02_glew.cpp)
 target_link_libraries(02_glew PRIVATE glfw glew -lGL)
+
+add_executable(03_vertex_buffer 03_vertex_buffer.cpp)
+target_link_libraries(03_vertex_buffer PRIVATE glfw glew -lGL)
