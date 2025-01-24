@@ -11,10 +11,19 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 if (NOT TARGET glfw)
-    add_library(glfw STATIC IMPORTED GLOBAL)
-    set_target_properties(glfw PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw/lib/libglfw3.a)
+    add_library(glfw SHARED IMPORTED GLOBAL)
+    set_target_properties(glfw PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw/lib/libglfw.so)
     target_include_directories(glfw INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw/include)
+endif()
+
+if (NOT TARGET glew)
+    add_library(glew SHARED IMPORTED GLOBAL)
+    set_target_properties(glew PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/deps/glew/lib64/libGLEW.so)
+    target_include_directories(glew INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/glew/include)
 endif()
 
 add_executable(01_triangle 01_triangle.cpp)
 target_link_libraries(01_triangle PRIVATE glfw -lGL)
+
+add_executable(02_glew 02_glew.cpp)
+target_link_libraries(02_glew PRIVATE glfw glew -lGL)
