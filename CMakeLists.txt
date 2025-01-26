@@ -22,6 +22,11 @@ if (NOT TARGET glew)
     target_include_directories(glew INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/glew/include)
 endif()
 
+if (NOT TARGET glad)
+    add_library(glad STATIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/src/glad.c)
+    target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/include)
+endif()
+
 add_executable(01_triangle 01_triangle.cpp)
 target_link_libraries(01_triangle PRIVATE glfw -lGL)
 
@@ -30,3 +35,6 @@ target_link_libraries(02_glew PRIVATE glfw glew -lGL)
 
 add_executable(03_vertex_buffer 03_vertex_buffer.cpp)
 target_link_libraries(03_vertex_buffer PRIVATE glfw glew -lGL)
+
+add_executable(04_glad 04_glad.cpp)
+target_link_libraries(04_glad PRIVATE glfw glad -lGL)
