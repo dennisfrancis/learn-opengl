@@ -39,3 +39,5 @@ target_link_libraries(003_vertex_buffer PRIVATE glfw glew -lGL)
 add_executable(004_glad 004_glad.cpp)
 target_link_libraries(004_glad PRIVATE glfw glad -lGL)
 
+add_executable(005_keyinput 005_keyinput.cpp)
+target_link_libraries(005_keyinput PRIVATE glfw glad -lGL)
