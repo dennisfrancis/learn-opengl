@@ -44,3 +44,6 @@ target_link_libraries(005_keyinput PRIVATE glfw glad -lGL)
 
 add_executable(006_window_clear src/006_window_clear.cpp)
 target_link_libraries(006_window_clear PRIVATE glfw glad -lGL)
+
+add_executable(007_triangle src/007_triangle.cpp)
+target_link_libraries(007_triangle PRIVATE glfw glad -lGL)
