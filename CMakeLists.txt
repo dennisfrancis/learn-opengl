@@ -27,20 +27,20 @@ if (NOT TARGET glad)
     target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/include)
 endif()
 
-add_executable(001_triangle 001_triangle.cpp)
+add_executable(001_triangle src/001_triangle.cpp)
 target_link_libraries(001_triangle PRIVATE glfw -lGL)
 
-add_executable(002_glew 002_glew.cpp)
+add_executable(002_glew src/002_glew.cpp)
 target_link_libraries(002_glew PRIVATE glfw glew -lGL)
 
-add_executable(003_vertex_buffer 003_vertex_buffer.cpp)
+add_executable(003_vertex_buffer src/003_vertex_buffer.cpp)
 target_link_libraries(003_vertex_buffer PRIVATE glfw glew -lGL)
 
-add_executable(004_glad 004_glad.cpp)
+add_executable(004_glad src/004_glad.cpp)
 target_link_libraries(004_glad PRIVATE glfw glad -lGL)
 
-add_executable(005_keyinput 005_keyinput.cpp)
+add_executable(005_keyinput src/005_keyinput.cpp)
 target_link_libraries(005_keyinput PRIVATE glfw glad -lGL)
 
-add_executable(006_window_clear 006_window_clear.cpp)
+add_executable(006_window_clear src/006_window_clear.cpp)
 target_link_libraries(006_window_clear PRIVATE glfw glad -lGL)
