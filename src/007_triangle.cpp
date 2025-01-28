@@ -4,6 +4,17 @@
 
 #include <iostream>
 
+// vertex shader source code in GLSL.
+const char* vertex_shader_source
+    = "#version 330 core\n"
+      "layout (location = 0) in vec3 aPos;\n"
+      "void main()\n"
+      "{\n"
+      // gl_Position is where the output of the vertex shader is placed which
+      // is a vec4.
+      " gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+      "}\0";
+
 void framebuffer_resize_callback(GLFWwindow* window, int width, int height);
 void process_input(GLFWwindow* window);
 
@@ -47,7 +58,13 @@ int main()
 
     // Vertices of the triangle we want to render is first specified in
     // NDCoordinates.
-    float vertices[] = { -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f };
+    // clang-format off
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f,
+    };
+    // clang-format on
 
     // ID of vertex buffer object.
     unsigned int VBO;
@@ -73,6 +90,30 @@ int main()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     // Now the data is in the GPU memory and now we can write vertex and
     // fragment shaders to process this data.
+
+    // In order for OpenGL to use the shader it has to dynamically compile it
+    // at run-time from its source code. The first thing we need to do is
+    // create a shader object, again referenced by an ID.
+    unsigned int vertex_shader;
+    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+
+    // Next we attach the shader source code to the shader object and compile
+    // the shader:
+    // second param is the number of strings passed.
+    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
+    glCompileShader(vertex_shader);
+    // Check for compile errors:
+    int success;
+    char info_log[512];
+    glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        // Compilation failed. Show the errors and bail out.
+        glGetShaderInfoLog(vertex_shader, sizeof(info_log), NULL, info_log);
+        std::cerr << "[ERROR] Vertex shader compile failed!\n" << info_log << '\n';
+        glfwTerminate();
+        return 1;
+    }
 
     while (!glfwWindowShouldClose(window))
     {
