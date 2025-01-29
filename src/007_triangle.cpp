@@ -131,6 +131,32 @@ int main()
     // Both the shaders are now compiled and the only thing left to do is link
     // both shader objects into a *shader program* that we can use for
     // rendering.
+    // A shader program object is the final linked version of multiple shaders
+    // combined.
+
+    unsigned int shader_program;
+    shader_program = glCreateProgram();
+    // Now we need to attach the previously compiled shaders to the program
+    // object and then link them.
+    glAttachShader(shader_program, vertex_shader);
+    glAttachShader(shader_program, fragment_shader);
+    glLinkProgram(shader_program);
+    int success;
+    glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        char info_log[512];
+        glGetProgramInfoLog(shader_program, sizeof(info_log), NULL, info_log);
+        std::cerr << "[ERROR] Program link failed!\n" << info_log << '\n';
+        glDeleteShader(vertex_shader);
+        glDeleteShader(fragment_shader);
+        glfwTerminate();
+        return 1;
+    }
+
+    // The result is a program object that we can activate by calling
+    // glUseProgram with the newly created program object as its argument.
+    glUseProgram(shader_program);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -148,6 +174,11 @@ int main()
         // swap buffers
         glfwSwapBuffers(window);
     }
+
+    // TODO: Delete Vertex buffer ?
+    glDeleteProgram(shader_program);
+    glDeleteShader(vertex_shader);
+    glDeleteShader(fragment_shader);
 
     glfwTerminate();
     return 0;
