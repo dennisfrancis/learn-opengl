@@ -5,7 +5,7 @@
 #include <iostream>
 
 // vertex shader source code in GLSL.
-const char* vertex_shader_source
+static const char* vertex_shader_source
     = "#version 330 core\n"
       "layout (location = 0) in vec3 aPos;\n"
       "void main()\n"
@@ -15,8 +15,18 @@ const char* vertex_shader_source
       " gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
       "}\0";
 
-void framebuffer_resize_callback(GLFWwindow* window, int width, int height);
-void process_input(GLFWwindow* window);
+static const char* fragment_shader_source = "#version 330 core\n"
+                                            "out vec4 FragColor;\n"
+                                            "void main()\n"
+                                            "{\n"
+                                            "  FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                            "}\0";
+
+static void framebuffer_resize_callback(GLFWwindow* window, int width, int height);
+static void process_input(GLFWwindow* window);
+
+static bool add_compile_shader(unsigned int shader_object_id, const char** shader_source_string,
+                               GLenum shader_type);
 
 int main()
 {
@@ -99,21 +109,28 @@ int main()
 
     // Next we attach the shader source code to the shader object and compile
     // the shader:
-    // second param is the number of strings passed.
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
-    glCompileShader(vertex_shader);
-    // Check for compile errors:
-    int success;
-    char info_log[512];
-    glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
-    if (!success)
+    if (!add_compile_shader(vertex_shader, &vertex_shader_source, GL_VERTEX_SHADER))
     {
-        // Compilation failed. Show the errors and bail out.
-        glGetShaderInfoLog(vertex_shader, sizeof(info_log), NULL, info_log);
-        std::cerr << "[ERROR] Vertex shader compile failed!\n" << info_log << '\n';
+        // Compile failed. add_compile_shader will output the error.
         glfwTerminate();
         return 1;
     }
+
+    // The fragment shader is all about calculating the color output of your
+    // pixels. In this case it sets the same color to every pixel.
+    unsigned int fragment_shader;
+    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
+    // Next we attach the shader source code to the shader object and compile
+    // the shader:
+    if (!add_compile_shader(fragment_shader, &fragment_shader_source, GL_FRAGMENT_SHADER))
+    {
+        // Compile failed. add_compile_shader will output the error.
+        glfwTerminate();
+        return 1;
+    }
+    // Both the shaders are now compiled and the only thing left to do is link
+    // both shader objects into a *shader program* that we can use for
+    // rendering.
 
     while (!glfwWindowShouldClose(window))
     {
@@ -150,4 +167,28 @@ void process_input(GLFWwindow* window)
     {
         glfwSetWindowShouldClose(window, true);
     }
+}
+
+bool add_compile_shader(unsigned int shader_object_id, const char** shader_source_string,
+                        GLenum shader_type)
+{
+    // Next we attach the shader source code to the shader object and compile
+    // the shader:
+    // second param is the number of strings passed.
+    glShaderSource(shader_object_id, 1, shader_source_string, NULL);
+    glCompileShader(shader_object_id);
+    // Check for compile errors:
+    int success;
+    glGetShaderiv(shader_object_id, GL_COMPILE_STATUS, &success);
+    if (success)
+    {
+        return true;
+    }
+    char info_log[512];
+    // Compilation failed. Show the errors and bail out.
+    glGetShaderInfoLog(shader_object_id, sizeof(info_log), NULL, info_log);
+    std::cerr << "[ERROR] " << (shader_type == GL_VERTEX_SHADER ? "Vertex" : "Fragment")
+              << " Shader compile failed:\n"
+              << info_log << '\n';
+    return false;
 }
