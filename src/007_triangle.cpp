@@ -66,6 +66,10 @@ int main()
 
     glfwSetFramebufferSizeCallback(window, framebuffer_resize_callback);
 
+    // To store id of vertex array object(VAO).
+    unsigned int VAO;
+    glGenVertexArrays(1, &VAO);
+
     // Vertices of the triangle we want to render is first specified in
     // NDCoordinates.
     // clang-format off
@@ -75,6 +79,9 @@ int main()
          0.0f,  0.5f, 0.0f,
     };
     // clang-format on
+
+    // Bind vertex array object.
+    glBindVertexArray(VAO);
 
     // ID of vertex buffer object.
     unsigned int VBO;
@@ -160,8 +167,6 @@ int main()
     glEnableVertexAttribArray(0);
 
     // The result is a program object that we can activate by calling
-    // glUseProgram with the newly created program object as its argument.
-    glUseProgram(shader_program);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -173,6 +178,18 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         // Clear the color buffer using the clear-color state set above.
         glClear(GL_COLOR_BUFFER_BIT);
+
+        // glUseProgram with the newly created program object as its argument.
+        glUseProgram(shader_program);
+        // Usually when you have multiple objects you want to draw, you first
+        // generate/configure all the VAOs (and thus the required VBO and
+        // attribute pointers) and store those for later use. The moment we
+        // want to draw one of our objects, we take the corresponding VAO, bind
+        // it, then draw the object and unbind the VAO again.
+        glBindVertexArray(VAO);
+
+        // Draw the triangle using the active shader program.
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // poll and process events
         glfwPollEvents();
