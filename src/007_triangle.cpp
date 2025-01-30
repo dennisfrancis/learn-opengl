@@ -154,6 +154,11 @@ int main()
         return 1;
     }
 
+    // Tell OpenGL how it should interpret the vertex data in the buffer.
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // Enable the vertex attribute.
+    glEnableVertexAttribArray(0);
+
     // The result is a program object that we can activate by calling
     // glUseProgram with the newly created program object as its argument.
     glUseProgram(shader_program);
