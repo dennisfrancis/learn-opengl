@@ -160,13 +160,24 @@ int main()
         glfwTerminate();
         return 1;
     }
+    // The result is a program object that we can activate by calling
+    // glUseProgram.
 
     // Tell OpenGL how it should interpret the vertex data in the buffer.
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     // Enable the vertex attribute.
     glEnableVertexAttribArray(0);
 
-    // The result is a program object that we can activate by calling
+    // note that this is allowed, the call to glVertexAttribPointer registered
+    // VBO as the vertex attribute's bound vertex buffer object so afterwards
+    // we can safely unbind
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // You can unbind the VAO afterwards so other VAO calls won't accidentally
+    // modify this VAO, but this rarely happens. Modifying other VAOs requires
+    // a call to glBindVertexArray anyways so we generally don't unbind VAOs
+    // (nor VBOs) when it's not directly necessary.
+    glBindVertexArray(0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -186,10 +197,14 @@ int main()
         // attribute pointers) and store those for later use. The moment we
         // want to draw one of our objects, we take the corresponding VAO, bind
         // it, then draw the object and unbind the VAO again.
+        // Seeing as we only have a single VAO there's no need to bind it every
+        // time, but we'll do so to keep things a bit more organized
         glBindVertexArray(VAO);
 
         // Draw the triangle using the active shader program.
         glDrawArrays(GL_TRIANGLES, 0, 3);
+        // No need to unbind it every time.
+        // glBindVertexArray(0);
 
         // poll and process events
         glfwPollEvents();
@@ -197,7 +212,8 @@ int main()
         glfwSwapBuffers(window);
     }
 
-    // TODO: Delete Vertex buffer ?
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
     glDeleteProgram(shader_program);
     glDeleteShader(vertex_shader);
     glDeleteShader(fragment_shader);
