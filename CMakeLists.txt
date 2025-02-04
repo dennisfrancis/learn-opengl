@@ -50,3 +50,6 @@ target_link_libraries(007_triangle PRIVATE glfw glad -lGL)
 
 add_executable(008_rectangle src/008_rectangle.cpp)
 target_link_libraries(008_rectangle PRIVATE glfw glad -lGL)
+
+add_executable(009_triangle_color_interpolate src/009_triangle_color_interpolate.cpp)
+target_link_libraries(009_triangle_color_interpolate PRIVATE glfw glad -lGL)
