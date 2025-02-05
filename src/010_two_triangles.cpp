@@ -144,6 +144,10 @@ int main()
         return 1;
     }
 
+    // Can delete the shader now that we have made a shader-program.
+    glDeleteShader(vertex_shader);
+    glDeleteShader(fragment_shader);
+
     // Little optimization to skip the other side of the triangle.
     // We are drawing the triangle in counter clockwise dir.
     glEnable(GL_CULL_FACE); // cull face
@@ -178,8 +182,6 @@ int main()
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &points_vbo);
     glDeleteProgram(shader_program);
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
 
     glfwTerminate();
     return 0;
