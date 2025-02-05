@@ -27,6 +27,9 @@ if (NOT TARGET glad)
     target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/include)
 endif()
 
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
+
 add_executable(001_triangle src/001_triangle.cpp)
 target_link_libraries(001_triangle PRIVATE glfw -lGL)
 
