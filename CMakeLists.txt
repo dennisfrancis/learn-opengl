@@ -59,3 +59,6 @@ target_link_libraries(010_two_triangles PRIVATE glfw glad -lGL)
 
 add_executable(011_triangles_two_vao_vbo src/011_triangles_two_vao_vbo.cpp)
 target_link_libraries(011_triangles_two_vao_vbo PRIVATE glfw glad -lGL)
+
+add_executable(012_two_triangles_different_colors src/012_two_triangles_different_colors.cpp)
+target_link_libraries(012_two_triangles_different_colors PRIVATE glfw glad -lGL)
