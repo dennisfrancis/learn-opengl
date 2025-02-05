@@ -56,3 +56,6 @@ target_link_libraries(009_triangle_color_interpolate PRIVATE glfw glad -lGL)
 
 add_executable(010_two_triangles src/010_two_triangles.cpp)
 target_link_libraries(010_two_triangles PRIVATE glfw glad -lGL)
+
+add_executable(011_triangles_two_vao_vbo src/011_triangles_two_vao_vbo.cpp)
+target_link_libraries(011_triangles_two_vao_vbo PRIVATE glfw glad -lGL)
