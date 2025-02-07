@@ -65,3 +65,6 @@ target_link_libraries(011_triangles_two_vao_vbo PRIVATE glfw glad -lGL)
 
 add_executable(012_two_triangles_different_colors src/012_two_triangles_different_colors.cpp)
 target_link_libraries(012_two_triangles_different_colors PRIVATE glfw glad -lGL)
+
+add_executable(013_max_vertex_attribs src/013_max_vertex_attribs.cpp)
+target_link_libraries(013_max_vertex_attribs PRIVATE glfw glad -lGL)
