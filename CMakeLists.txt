@@ -68,3 +68,5 @@ target_link_libraries(012_two_triangles_different_colors PRIVATE glfw glad -lGL)
 
 add_executable(013_max_vertex_attribs src/013_max_vertex_attribs.cpp)
 target_link_libraries(013_max_vertex_attribs PRIVATE glfw glad -lGL)
+
+add_subdirectory(src/014_shader_vectors)
