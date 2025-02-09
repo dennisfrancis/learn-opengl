@@ -72,3 +72,5 @@ target_link_libraries(013_max_vertex_attribs PRIVATE glfw glad -lGL)
 add_subdirectory(src/014_shader_vectors)
 
 add_subdirectory(src/015_dynamic_color)
+
+add_subdirectory(src/016_single_vbo_color)
