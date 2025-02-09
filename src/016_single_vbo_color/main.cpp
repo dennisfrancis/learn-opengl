@@ -4,15 +4,11 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include <string>
-#include <fstream>
+
+#include <util/shader.hpp>
 
 static void framebuffer_resize_callback(GLFWwindow* window, int width, int height);
 static void process_input(GLFWwindow* window);
-
-static bool add_compile_shader(unsigned int shader_object_id, const char** shader_source_string,
-                               GLenum shader_type);
-static bool load_shader(const std::string& fname, std::string& buffer);
 
 int main()
 {
@@ -53,53 +49,12 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_resize_callback);
 
     // Setup shaders and program.
-    std::string vert_shader;
-    load_shader("shaders/vertex.vert", vert_shader);
-    const char* vertex_shader_source = vert_shader.c_str();
-    unsigned int vertex_shader;
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    if (!add_compile_shader(vertex_shader, &vertex_shader_source, GL_VERTEX_SHADER))
+    util::Shader shader_program("shaders/vertex.vert", "shaders/fragment.frag");
+    if (shader_program.error)
     {
-        // Compile failed. add_compile_shader will output the error.
         glfwTerminate();
         return 1;
     }
-
-    std::string frag_shader;
-    load_shader("shaders/fragment.frag", frag_shader);
-    const char* fragment_shader_source = frag_shader.c_str();
-    unsigned int fragment_shader;
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    if (!add_compile_shader(fragment_shader, &fragment_shader_source, GL_FRAGMENT_SHADER))
-    {
-        // Compile failed. add_compile_shader will output the error.
-        glfwTerminate();
-        return 1;
-    }
-
-    unsigned int shader_program;
-    shader_program = glCreateProgram();
-    // Now we need to attach the previously compiled shaders to the program
-    // object and then link them.
-    glAttachShader(shader_program, vertex_shader);
-    glAttachShader(shader_program, fragment_shader);
-    glLinkProgram(shader_program);
-    int success;
-    glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        char info_log[512];
-        glGetProgramInfoLog(shader_program, sizeof(info_log), NULL, info_log);
-        std::cerr << "[ERROR] Program link failed!\n" << info_log << '\n';
-        glDeleteShader(vertex_shader);
-        glDeleteShader(fragment_shader);
-        glfwTerminate();
-        return 1;
-    }
-
-    // Can delete the shader now that we have made a shader-program.
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
 
     // Vertices of the triangle we want to render is first specified in
     // NDCoordinates.
@@ -156,7 +111,7 @@ int main()
         // Clear the color buffer using the clear-color state set above.
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shader_program);
+        shader_program.use();
         glBindVertexArray(vao);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -171,7 +126,6 @@ int main()
 
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
-    glDeleteProgram(shader_program);
 
     glfwTerminate();
     return 0;
@@ -191,44 +145,4 @@ void process_input(GLFWwindow* window)
     {
         glfwSetWindowShouldClose(window, true);
     }
-}
-
-bool add_compile_shader(unsigned int shader_object_id, const char** shader_source_string,
-                        GLenum shader_type)
-{
-    // Next we attach the shader source code to the shader object and compile
-    // the shader:
-    // second param is the number of strings passed.
-    glShaderSource(shader_object_id, 1, shader_source_string, NULL);
-    glCompileShader(shader_object_id);
-    // Check for compile errors:
-    int success;
-    glGetShaderiv(shader_object_id, GL_COMPILE_STATUS, &success);
-    if (success)
-    {
-        return true;
-    }
-    char info_log[512];
-    // Compilation failed. Show the errors and bail out.
-    glGetShaderInfoLog(shader_object_id, sizeof(info_log), NULL, info_log);
-    std::cerr << "[ERROR] " << (shader_type == GL_VERTEX_SHADER ? "Vertex" : "Fragment")
-              << " Shader compile failed:\n"
-              << info_log << '\n';
-    return false;
-}
-
-bool load_shader(const std::string& fname, std::string& buffer)
-{
-    std::ifstream fin(fname);
-    if (!fin)
-    {
-        std::cerr << "[ERROR] Error opening file " << fname << '\n';
-        return false;
-    }
-    fin.seekg(0, std::ios::end);
-    buffer.reserve(fin.tellg());
-    fin.seekg(0, std::ios::beg);
-    buffer.assign((std::istreambuf_iterator<char>(fin)), std::istreambuf_iterator<char>());
-    fin.close();
-    return true;
 }
