@@ -84,3 +84,5 @@ add_subdirectory(src/016_single_vbo_color)
 add_subdirectory(src/017_triangle_upside_down)
 
 add_subdirectory(src/018_triangle_horiz_offset)
+
+add_subdirectory(src/019_triangle_position_as_color)
