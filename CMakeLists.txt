@@ -80,3 +80,5 @@ add_subdirectory(src/014_shader_vectors)
 add_subdirectory(src/015_dynamic_color)
 
 add_subdirectory(src/016_single_vbo_color)
+
+add_subdirectory(src/017_triangle_upside_down)
