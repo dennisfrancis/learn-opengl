@@ -33,6 +33,11 @@ if (NOT TARGET util)
     target_link_libraries(util PRIVATE glad -lGL)
 endif()
 
+if (NOT TARGET stb_image)
+    add_library(stb_image STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/stb_image.cpp)
+    target_include_directories(stb_image PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/stb/include)
+endif()
+
 add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 
@@ -86,3 +91,5 @@ add_subdirectory(src/017_triangle_upside_down)
 add_subdirectory(src/018_triangle_horiz_offset)
 
 add_subdirectory(src/019_triangle_position_as_color)
+
+add_subdirectory(src/020_texture)
