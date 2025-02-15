@@ -47,21 +47,21 @@ void Shader::set_bool(const std::string& name, bool value) const
 {
     if (error)
         return;
-    glUniform1i(glad_glGetUniformLocation(ID, name.c_str()), static_cast<int>(value));
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), static_cast<int>(value));
 }
 
 void Shader::set_int(const std::string& name, int value) const
 {
     if (error)
         return;
-    glUniform1i(glad_glGetUniformLocation(ID, name.c_str()), value);
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
 void Shader::set_float(const std::string& name, float value) const
 {
     if (error)
         return;
-    glUniform1f(glad_glGetUniformLocation(ID, name.c_str()), value);
+    glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
 // static
