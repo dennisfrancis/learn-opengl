@@ -132,6 +132,10 @@ int main()
     glGenTextures(2, texture);
     const char* images[2]
         = { "resources/textures/container.jpg", "resources/textures/awesomeface.png" };
+
+    // OpenGL expects the 0.0 coordinate on the y-axis to be on the bottom side
+    // of the image, but images usually have 0.0 at the top of the y-axis.
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded textures on the y-axis.
     for (int i = 0; i < 2; ++i)
     {
         // activate the texture unit first before binding texture.
