@@ -10,5 +10,7 @@ uniform sampler2D our_texture;
 void main()
 {
     // frag_color = vec4(out_color, 1.0);
-    frag_color = texture(our_texture, out_tex_coord);
+    // frag_color = texture(our_texture, out_tex_coord);
+    // Mix texture color with vertex colors.
+    frag_color = texture(our_texture, out_tex_coord) * vec4(out_color, 1.0);
 }
