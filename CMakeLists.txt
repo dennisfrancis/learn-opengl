@@ -95,3 +95,5 @@ add_subdirectory(src/019_triangle_position_as_color)
 add_subdirectory(src/020_texture)
 
 add_subdirectory(src/021_two_textures)
+
+add_subdirectory(src/022_hflip_shader)
