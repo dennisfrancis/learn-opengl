@@ -97,3 +97,5 @@ add_subdirectory(src/020_texture)
 add_subdirectory(src/021_two_textures)
 
 add_subdirectory(src/022_hflip_shader)
+
+add_subdirectory(src/023_texture_wrap)
