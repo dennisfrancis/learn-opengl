@@ -101,3 +101,5 @@ add_subdirectory(src/022_hflip_shader)
 add_subdirectory(src/023_texture_wrap)
 
 add_subdirectory(src/024_zoom_in_pixelated)
+
+add_subdirectory(src/025_interactive_mix)
