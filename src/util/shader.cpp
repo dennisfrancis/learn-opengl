@@ -1,4 +1,5 @@
 #include <util/shader.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -62,6 +63,14 @@ void Shader::set_float(const std::string& name, float value) const
     if (error)
         return;
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+// Assumes the matrix is stored in column major layout.
+void Shader::set_matrix4f(const std::string& name, const glm::mat4& mat4) const
+{
+    if (error)
+        return;
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat4));
 }
 
 // static

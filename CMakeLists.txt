@@ -27,10 +27,16 @@ if (NOT TARGET glad)
     target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/include)
 endif()
 
+if (NOT TARGET glm)
+    add_library(glm SHARED IMPORTED GLOBAL)
+    set_target_properties(glm PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/deps/glm/lib/libglm.so)
+    target_include_directories(glm INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/glm/include)
+endif()
+
 if (NOT TARGET util)
     add_library(util STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp)
     target_include_directories(util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(util PRIVATE glad -lGL)
+    target_link_libraries(util PRIVATE glad -lGL glm)
 endif()
 
 if (NOT TARGET stb_image)
@@ -103,3 +109,5 @@ add_subdirectory(src/023_texture_wrap)
 add_subdirectory(src/024_zoom_in_pixelated)
 
 add_subdirectory(src/025_interactive_mix)
+
+add_subdirectory(src/026_transformations)

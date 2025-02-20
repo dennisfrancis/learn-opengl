@@ -2,6 +2,7 @@
 
 #include <string>
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 namespace util
 {
@@ -21,6 +22,7 @@ public:
     void set_bool(const std::string& name, bool value) const;
     void set_int(const std::string& name, int value) const;
     void set_float(const std::string& name, float value) const;
+    void set_matrix4f(const std::string& name, const glm::mat4& mat4) const;
 
 private:
     static bool load_shader(const std::string& fname, std::string& buffer);
