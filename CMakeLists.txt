@@ -111,3 +111,5 @@ add_subdirectory(src/024_zoom_in_pixelated)
 add_subdirectory(src/025_interactive_mix)
 
 add_subdirectory(src/026_transformations)
+
+add_subdirectory(src/027_transformations_2)
