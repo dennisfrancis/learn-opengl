@@ -73,6 +73,13 @@ void Shader::set_matrix4f(const std::string& name, const glm::mat4& mat4) const
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat4));
 }
 
+void Shader::set_vec4(const std::string& name, const glm::vec4& vec4) const
+{
+    if (error)
+        return;
+    glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(vec4));
+}
+
 // static
 bool Shader::load_shader(const std::string& fname, std::string& buffer)
 {

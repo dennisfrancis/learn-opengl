@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(OpenGL VERSION 2.1.0)
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -115,3 +115,5 @@ add_subdirectory(src/026_transformations)
 add_subdirectory(src/027_transformations_2)
 
 add_subdirectory(src/028_transformations_3)
+
+add_subdirectory(src/029_transformations_4)
