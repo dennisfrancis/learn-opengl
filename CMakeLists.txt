@@ -36,7 +36,7 @@ endif()
 if (NOT TARGET util)
     add_library(util STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp)
     target_include_directories(util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(util PRIVATE glad -lGL glm)
+    target_link_libraries(util PUBLIC glad -lGL glm)
 endif()
 
 if (NOT TARGET stb_image)
