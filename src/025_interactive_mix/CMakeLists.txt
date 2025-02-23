@@ -17,7 +17,7 @@ add_custom_target(
 add_custom_target(
     ${PROJECT_NAME}.resources
     ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/resources
+        ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/resources
     COMMENT "Copying resource files for target: ${PROJECT_NAME}"
 )
 
