@@ -117,3 +117,9 @@ add_subdirectory(src/027_transformations_2)
 add_subdirectory(src/028_transformations_3)
 
 add_subdirectory(src/029_transformations_4)
+
+add_executable(001_window src/ogldev/001_window.cpp)
+target_link_libraries(001_window PRIVATE glfw -lGL)
+
+add_executable(002_point src/ogldev/002_point.cpp)
+target_link_libraries(002_point PRIVATE glfw glew -lGL)
