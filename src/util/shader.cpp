@@ -136,6 +136,7 @@ bool Shader::compile_shader(const char* shader_path, GLenum shader_type, GLuint&
 
 bool Shader::build_program(GLuint vertex_shader, GLuint fragment_shader)
 {
+    char info_log[1024];
     ID = glCreateProgram();
     glAttachShader(ID, vertex_shader);
     glAttachShader(ID, fragment_shader);
@@ -144,9 +145,17 @@ bool Shader::build_program(GLuint vertex_shader, GLuint fragment_shader)
     glGetProgramiv(ID, GL_LINK_STATUS, &success);
     if (!success)
     {
-        char info_log[512];
         glGetProgramInfoLog(ID, sizeof(info_log), NULL, info_log);
         std::cerr << "[ERROR] Program link failed!\n" << info_log << '\n';
+        return false;
+    }
+
+    glValidateProgram(ID);
+    glGetProgramiv(ID, GL_VALIDATE_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(ID, sizeof(info_log), NULL, info_log);
+        std::cerr << "[ERROR] Program validation failed!\n" << info_log << '\n';
         return false;
     }
 
