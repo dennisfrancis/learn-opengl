@@ -123,3 +123,5 @@ target_link_libraries(001_window PRIVATE glfw -lGL)
 
 add_executable(002_point src/ogldev/002_point.cpp)
 target_link_libraries(002_point PRIVATE glfw glew -lGL)
+
+add_subdirectory(src/ogldev/004_shaders)
