@@ -34,7 +34,10 @@ if (NOT TARGET glm)
 endif()
 
 if (NOT TARGET util)
-    add_library(util STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp)
+    add_library(util STATIC 
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/util/uniforms.cpp
+    )
     target_include_directories(util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
     target_link_libraries(util PUBLIC glad -lGL glm)
 endif()
@@ -125,3 +128,5 @@ add_executable(002_point src/ogldev/002_point.cpp)
 target_link_libraries(002_point PRIVATE glfw glew -lGL)
 
 add_subdirectory(src/ogldev/004_shaders)
+
+add_subdirectory(src/ogldev/005_uniform1f)
