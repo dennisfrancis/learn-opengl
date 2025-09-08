@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+#include <util/uniforms.hpp>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -15,6 +18,7 @@ public:
 
     // constructor that reads and builds the shader program.
     Shader(const char* vertex_path, const char* fragment_path);
+    Shader(const char* vertex_path, const char* fragment_path, const std::vector<Uniform*>& unifs);
     ~Shader();
     // activate the shader program.
     void use();
@@ -28,7 +32,7 @@ public:
 private:
     static bool load_shader(const std::string& fname, std::string& buffer);
     static bool compile_shader(const char* shader_path, GLenum shader_type, GLuint& shader_id);
-    bool build_program(GLuint vertex_shader, GLuint fragment_shader);
+    bool build_program(GLuint vertex_shader, GLuint fragment_shader, const std::vector<Uniform*>* unifs);
 };
 
 }

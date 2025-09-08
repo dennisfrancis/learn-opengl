@@ -1,8 +1,10 @@
+#include "util/uniforms.hpp"
 #include <util/shader.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 namespace util
 {
@@ -23,7 +25,30 @@ Shader::Shader(const char* vertex_path, const char* fragment_path)
         return;
     }
 
-    error = !build_program(vertex_shader, fragment_shader);
+    error = !build_program(vertex_shader, fragment_shader, nullptr);
+
+    // Can delete the shaders now.
+    glDeleteShader(vertex_shader);
+    glDeleteShader(fragment_shader);
+}
+
+Shader::Shader(const char* vertex_path, const char* fragment_path, const std::vector<Uniform*>& unifs)
+    : ID{ 0 }
+    , error{ true }
+{
+    GLuint vertex_shader;
+    if (!compile_shader(vertex_path, GL_VERTEX_SHADER, vertex_shader))
+    {
+        return;
+    }
+
+    GLuint fragment_shader;
+    if (!compile_shader(fragment_path, GL_FRAGMENT_SHADER, fragment_shader))
+    {
+        return;
+    }
+
+    error = !build_program(vertex_shader, fragment_shader, &unifs);
 
     // Can delete the shaders now.
     glDeleteShader(vertex_shader);
@@ -134,7 +159,7 @@ bool Shader::compile_shader(const char* shader_path, GLenum shader_type, GLuint&
     return false;
 }
 
-bool Shader::build_program(GLuint vertex_shader, GLuint fragment_shader)
+bool Shader::build_program(GLuint vertex_shader, GLuint fragment_shader, const std::vector<Uniform*>* unifs)
 {
     char info_log[1024];
     ID = glCreateProgram();
@@ -148,6 +173,15 @@ bool Shader::build_program(GLuint vertex_shader, GLuint fragment_shader)
         glGetProgramInfoLog(ID, sizeof(info_log), NULL, info_log);
         std::cerr << "[ERROR] Program link failed!\n" << info_log << '\n';
         return false;
+    }
+
+    if (unifs)
+    {
+        for (auto& uu: *unifs)
+        {
+            uu->program = ID;
+            uu->location = glGetUniformLocation(ID, uu->name.c_str());
+        }
     }
 
     glValidateProgram(ID);
