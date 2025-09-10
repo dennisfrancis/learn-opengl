@@ -130,3 +130,5 @@ target_link_libraries(002_point PRIVATE glfw glew -lGL)
 add_subdirectory(src/ogldev/004_shaders)
 
 add_subdirectory(src/ogldev/005_uniform1f)
+
+add_subdirectory(src/ogldev/006_translation)
