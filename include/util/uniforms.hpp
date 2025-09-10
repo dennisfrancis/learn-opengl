@@ -33,4 +33,16 @@ struct Uniform1f : public Uniform
     void set(float vv);
 };
 
+struct Matrix4f: public Uniform
+{
+    float mat[4][4];
+
+    Matrix4f(const std::string& name_)
+        : Uniform(name_)
+    {
+    }
+
+    void set();
+};
+
 }
