@@ -132,3 +132,5 @@ add_subdirectory(src/ogldev/004_shaders)
 add_subdirectory(src/ogldev/005_uniform1f)
 
 add_subdirectory(src/ogldev/006_translation)
+
+add_subdirectory(src/ogldev/007_rotation)
