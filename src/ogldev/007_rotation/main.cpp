@@ -91,7 +91,7 @@ int main()
         glFrontFace(GL_CCW); // GL_CW for clock-wise
 
         // Initialize the translation matrix:
-        float (&mat)[4][4] = rot_mat.mat;
+        float (&mat)[4][4] = rot_mat.get();
         float angle = 0.0f;
         float delta = 0.03f;
         for (int ii = 0; ii < 4; ++ii)

@@ -91,7 +91,7 @@ int main()
         glFrontFace(GL_CCW); // GL_CW for clock-wise
 
         // Initialize the translation matrix:
-        float (&mat)[4][4] = translation.mat;
+        float (&mat)[4][4] = translation.get();
         float scale = 1.0f;
         float delta = 0.01f;
         for (int ii = 0; ii < 4; ++ii)
