@@ -136,3 +136,5 @@ add_subdirectory(src/ogldev/006_translation)
 add_subdirectory(src/ogldev/007_rotation)
 
 add_subdirectory(src/ogldev/008_scaling)
+
+add_subdirectory(src/ogldev/008.1_multi_transform)
