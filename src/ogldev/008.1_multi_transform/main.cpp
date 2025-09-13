@@ -224,6 +224,7 @@ Buffers::Buffers(const float* vertices, size_t num_verts)
     // configure attrib-pointer #0 to the positions part of the vertex buffer.
     glVertexAttribPointer(0, vert_dims, GL_FLOAT, GL_FALSE,
                           (vert_dims * attributes) * sizeof(float), (void*)0 /* offset */);
+    // configure attrib-pointer #1 to the color part of the vertex buffer.
     glVertexAttribPointer(1, vert_dims, GL_FLOAT, GL_FALSE,
                           (vert_dims * attributes) * sizeof(float),
                           (void*)(vert_dims * sizeof(float)));
