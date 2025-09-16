@@ -142,3 +142,5 @@ add_subdirectory(src/ogldev/008.1_multi_transform)
 add_subdirectory(src/ogldev/008.2_pointsize)
 
 add_subdirectory(src/ogldev/010_indexed)
+
+add_subdirectory(src/ogldev/011_perspective1)
