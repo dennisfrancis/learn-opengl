@@ -252,10 +252,14 @@ int main()
             }
         }
 
+        // translate the cube a bit away from the origin in the z-direction so
+        // it is fully in the view frustum.
         tmat[2][3] = 2.5f;
 
+        // same FOV is used for the vertical FOV and horizontal FOV.
         float FOV = 90.0f; // in degrees.
         float tanHalfFOV = std::tan(FOV * M_PI / 360.0);
+        // Assumes the near clip-plane is at z = 1.0;
         float d = 1 / tanHalfFOV;
 
         util::Mat4x4f perspective{
