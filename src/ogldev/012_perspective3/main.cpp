@@ -1,6 +1,11 @@
 // This sample shows how to change the projection matrix so the final zmin and
 // zmax are in (-1.0, 1.0) where there is highest precision for float
 // variables.
+//
+// This is especially important in z direction as z coordinate is used for
+// depth test in the depth buffer to see which pixels are occluding other
+// pixels.
+//
 // This done by defining A & B in the projection matrix with respect to the
 // z_near and z_far we want.
 
