@@ -146,3 +146,5 @@ add_subdirectory(src/ogldev/010_indexed)
 add_subdirectory(src/ogldev/011_perspective1)
 
 add_subdirectory(src/ogldev/012_perspective2)
+
+add_subdirectory(src/ogldev/012_perspective3)
