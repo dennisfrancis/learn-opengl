@@ -43,9 +43,7 @@ struct ColoredVertex
         x = x_;
         y = y_;
         z = 0.0f;
-        r = static_cast<float>(unirand(gen));
-        g = static_cast<float>(unirand(gen));
-        b = static_cast<float>(unirand(gen));
+        set_rgb();
     }
 
     void set(float x_, float y_, float z_)
@@ -53,6 +51,12 @@ struct ColoredVertex
         x = x_;
         y = y_;
         z = z_;
+        set_rgb();
+    }
+
+private:
+    void set_rgb()
+    {
         r = static_cast<float>(unirand(gen));
         g = static_cast<float>(unirand(gen));
         b = static_cast<float>(unirand(gen));
