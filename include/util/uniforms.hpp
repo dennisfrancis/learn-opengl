@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <string>
 
+#include <util/3dtypes.hpp>
+
 namespace util
 {
 
@@ -31,14 +33,6 @@ struct Uniform1f : public Uniform
     }
 
     void set(float vv);
-};
-
-using mat4x4f_t = float[4][4];
-
-struct Mat4x4f
-{
-    mat4x4f_t mat;
-    Mat4x4f operator*(const Mat4x4f& other) const;
 };
 
 struct Matrix4f: public Uniform

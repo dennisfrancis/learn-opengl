@@ -9,25 +9,6 @@ void Uniform1f::set(float vv)
     glUniform1f(location, value);
 }
 
-Mat4x4f Mat4x4f::operator*(const Mat4x4f& other) const
-{
-    Mat4x4f res;
-    for (int ii = 0; ii < 4; ++ii)
-    {
-        for (int jj = 0; jj < 4; ++jj)
-        {
-            float dot = 0.0f;
-            for (int kk = 0; kk < 4; ++kk)
-            {
-                dot += mat[ii][kk] * other.mat[kk][jj];
-            }
-            res.mat[ii][jj] = dot;
-        }
-    }
-
-    return res;
-}
-
 void Matrix4f::set()
 {
     glUniformMatrix4fv(location, 1, GL_TRUE /* already in row major form */, get_ptr());

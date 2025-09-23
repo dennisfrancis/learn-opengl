@@ -37,6 +37,7 @@ if (NOT TARGET util)
     add_library(util STATIC 
         ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/util/uniforms.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/util/3dtypes.cpp
     )
     target_include_directories(util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
     target_link_libraries(util PUBLIC glad -lGL glm)
