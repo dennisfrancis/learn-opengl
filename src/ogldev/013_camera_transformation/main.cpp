@@ -9,6 +9,7 @@
 // This done by defining A & B in the projection matrix with respect to the
 // z_near and z_far we want.
 
+#include "util/3dtypes.hpp"
 #include "util/uniforms.hpp"
 #include <cmath>
 #include <cstdint>
@@ -17,13 +18,8 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include <random>
 
 #include <util/shader.hpp>
-
-static std::random_device rd; // Will be used to obtain a seed for the random number engine
-static std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-static std::uniform_real_distribution<> unirand(0.0, 1.0);
 
 static void framebuffer_resize_callback(GLFWwindow* window, int width, int height);
 static void process_input(GLFWwindow* window);
@@ -57,9 +53,9 @@ struct ColoredVertex
 private:
     void set_rgb()
     {
-        r = static_cast<float>(unirand(gen));
-        g = static_cast<float>(unirand(gen));
-        b = static_cast<float>(unirand(gen));
+        r = static_cast<float>(util::random_float());
+        g = static_cast<float>(util::random_float());
+        b = static_cast<float>(util::random_float());
     }
 };
 
