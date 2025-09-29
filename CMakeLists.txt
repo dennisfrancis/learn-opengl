@@ -34,7 +34,7 @@ if (NOT TARGET glm)
 endif()
 
 if (NOT TARGET util)
-    add_library(util STATIC 
+    add_library(util STATIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/util/shader.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/util/uniforms.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/util/3dtypes.cpp
