@@ -200,4 +200,27 @@ void Mat4x4f::init_rotate_transform_z(float z)
     mat[3][3] = 1.0f;
 }
 
+void Mat4x4f::init_translation_transform(float x, float y, float z)
+{
+    mat[0][0] = 1.0f;
+    mat[0][1] = 0.0f;
+    mat[0][2] = 0.0f;
+    mat[0][3] = x;
+
+    mat[1][0] = 0.0f;
+    mat[1][1] = 1.0f;
+    mat[1][2] = 0.0f;
+    mat[1][3] = y;
+
+    mat[2][0] = 0.0f;
+    mat[2][1] = 0.0f;
+    mat[2][2] = 1.0f;
+    mat[2][3] = z;
+
+    mat[3][0] = 0.0f;
+    mat[3][1] = 0.0f;
+    mat[3][2] = 0.0f;
+    mat[3][3] = 1.0f;
+}
+
 }

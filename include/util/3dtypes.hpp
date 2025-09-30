@@ -38,6 +38,8 @@ struct Mat4x4f
     void init_rotate_transform_x(float x);
     void init_rotate_transform_y(float y);
     void init_rotate_transform_z(float z);
+
+    void init_translation_transform(float x, float y, float z);
 };
 
 }
