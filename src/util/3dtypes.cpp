@@ -1,4 +1,5 @@
 #include <util/3dtypes.hpp>
+#include <cassert>
 #include <random>
 
 namespace util
@@ -12,6 +13,28 @@ std::uniform_real_distribution<> unirand(0.0, 1.0);
 }
 
 float random_float() { return unirand(gen); }
+
+Vec3f Vec3f::cross(const Vec3f& v) const
+{
+    const float _x = y * v.z - z * v.y;
+    const float _y = z * v.x - x * v.z;
+    const float _z = x * v.y - y * v.x;
+
+    return Vec3f(_x, _y, _z);
+}
+
+Vec3f& Vec3f::normalize()
+{
+    float len = length();
+
+    assert(len != 0);
+
+    x /= len;
+    y /= len;
+    z /= len;
+
+    return *this;
+}
 
 Mat4x4f::Mat4x4f(
     // row 0
