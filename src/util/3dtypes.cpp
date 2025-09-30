@@ -11,20 +11,17 @@ std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 std::uniform_real_distribution<> unirand(0.0, 1.0);
 }
 
-float random_float()
-{
-    return unirand(gen);
-}
+float random_float() { return unirand(gen); }
 
 Mat4x4f::Mat4x4f(
-            // row 0
-            float a00, float a01, float a02, float a03,
-            // row 1
-            float a10, float a11, float a12, float a13,
-            // row 2
-            float a20, float a21, float a22, float a23,
-            // row 3
-            float a30, float a31, float a32, float a33)
+    // row 0
+    float a00, float a01, float a02, float a03,
+    // row 1
+    float a10, float a11, float a12, float a13,
+    // row 2
+    float a20, float a21, float a22, float a23,
+    // row 3
+    float a30, float a31, float a32, float a33)
 {
     mat[0][0] = a00;
     mat[0][1] = a01;
@@ -45,7 +42,6 @@ Mat4x4f::Mat4x4f(
     mat[3][1] = a31;
     mat[3][2] = a32;
     mat[3][3] = a33;
-
 }
 
 Mat4x4f Mat4x4f::operator*(const Mat4x4f& other) const
@@ -69,13 +65,13 @@ Mat4x4f Mat4x4f::operator*(const Mat4x4f& other) const
 
 void Mat4x4f::init_scale_transform(float scale_x, float scale_y, float scale_z)
 {
-    float scales[3]{scale_x, scale_y, scale_z};
+    float scales[3]{ scale_x, scale_y, scale_z };
     init_scale_transform(scales);
 }
 
 void Mat4x4f::init_scale_transform(float scale)
 {
-    float scales[3]{scale, scale, scale};
+    float scales[3]{ scale, scale, scale };
     init_scale_transform(scales);
 }
 
@@ -123,7 +119,6 @@ void Mat4x4f::init_rotate_transform(float rotate_x, float rotate_y, float rotate
 
 void Mat4x4f::init_rotate_transform_zyx(float rotate_x, float rotate_y, float rotate_z)
 {
-
     Mat4x4f rx, ry, rz;
 
     fill_deg_rotations(rx, ry, rz, rotate_x, rotate_y, rotate_z);
